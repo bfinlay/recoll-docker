@@ -1,0 +1,4 @@
+/data/.recoll/*
+!/data/.recoll/recoll.conf
+
+.env

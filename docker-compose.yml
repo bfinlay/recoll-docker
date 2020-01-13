@@ -1,0 +1,27 @@
+version: '3'
+
+networks:
+  backend:
+    driver: ${NETWORKS_DRIVER}
+
+volumes:
+  files:
+    driver: ${VOLUMES_DRIVER}
+  index:
+    driver: ${VOLUMES_DRIVER}
+  scripts:
+    driver: ${VOLUMES_DRIVER}
+
+services:
+  recoll:
+    build: .
+    volumes:
+      - ${HOST_PATH_TO_INDEX}:/mnt/files
+      - ${HOST_INDEX_STORAGE_PATH}:/home/docker/data
+      - ./scripts:/home/docker/scripts
+    ports:
+      - ${RECOLL_WEBUI_PORT}:8080
+    networks:
+      - backend
+    command: /bin/sh -c /home/docker/scripts/startrecoll.sh
+#    command: tail -F anything
